@@ -1,0 +1,111 @@
+[gd_scene load_steps=18 format=3 uid="uid://ia7yjbkv64rc"]
+
+[ext_resource type="Texture2D" uid="uid://cijl35e6yuflv" path="res://Assets/dojo.png" id="1_r150o"]
+[ext_resource type="Script" uid="uid://kkhgo1n5bpdb" path="res://Scripts/Main.gd" id="1_v1gob"]
+[ext_resource type="PackedScene" uid="uid://bkq8ldq8e7l1" path="res://Scenes/Player.tscn" id="2_kln2b"]
+[ext_resource type="PackedScene" uid="uid://bbsud3e4bw877" path="res://Scenes/GoodFood.tscn" id="3_jw32o"]
+[ext_resource type="PackedScene" uid="uid://cgsdw0nnoj31f" path="res://Scenes/Enemy.tscn" id="3_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://b1cguo8e3dwp" path="res://Scenes/BadFood.tscn" id="4_50glp"]
+[ext_resource type="PackedScene" uid="uid://cfnn3doqgm8jg" path="res://Scenes/GlobeFish.tscn" id="7_jw32o"]
+[ext_resource type="PackedScene" uid="uid://di4f6fcret6og" path="res://Scenes/Hud.tscn" id="8_50glp"]
+[ext_resource type="AudioStream" uid="uid://2wq7t3baugyc" path="res://Assets/Sounds/ComiendoMalo.mp3" id="9_h1m7h"]
+[ext_resource type="AudioStream" uid="uid://cht110ubu85jy" path="res://Assets/Sounds/ComiendoSano.mp3" id="10_erwvk"]
+[ext_resource type="AudioStream" uid="uid://buvteuptpwhtn" path="res://Assets/Sounds/Game-Over.mp3" id="11_2w5on"]
+[ext_resource type="AudioStream" uid="uid://00k0i87weano" path="res://Assets/Sounds/Inicio.mp3" id="12_346fj"]
+[ext_resource type="AudioStream" uid="uid://denn6dpb1d8v" path="res://Assets/Sounds/Main-Theme-ConSumo.mp3" id="13_0sclb"]
+[ext_resource type="AudioStream" uid="uid://dcci5kl8u3fna" path="res://Assets/Sounds/SonidoEmpuje.mp3" id="14_sxkr1"]
+[ext_resource type="AudioStream" uid="uid://cpvh3l1jkkdkb" path="res://Assets/Sounds/SonidoMuerte.mp3" id="15_fq0cl"]
+
+[sub_resource type="Curve2D" id="Curve2D_kln2b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 849, -1, 0, 0, 0, 0, 850, 648, 0, 0, 0, 0, 0, 650, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_rgh2o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 849, 0, 0, 0, 0, 0, 850, 650, 0, 0, 0, 0, 0, 650, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[node name="Main" type="Node"]
+script = ExtResource("1_v1gob")
+enemy_scene = ExtResource("3_rgh2o")
+good_food_scene = ExtResource("3_jw32o")
+bad_food_scene = ExtResource("4_50glp")
+globe_fish_scene = ExtResource("7_jw32o")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_r150o")
+expand_mode = 2
+
+[node name="Player" parent="." instance=ExtResource("2_kln2b")]
+position = Vector2(-106, 77)
+
+[node name="Enemy" parent="." instance=ExtResource("3_rgh2o")]
+position = Vector2(-105, -26)
+
+[node name="GoodFood" parent="." instance=ExtResource("3_jw32o")]
+
+[node name="BadFood" parent="." instance=ExtResource("4_50glp")]
+
+[node name="GlobeFish" parent="." instance=ExtResource("7_jw32o")]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 1.3
+
+[node name="FoodTimer" type="Timer" parent="."]
+wait_time = 0.4
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(425, 325)
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_kln2b")
+
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemyPath"]
+position = Vector2(1, 0)
+rotation = -0.00117924
+
+[node name="FoodPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_rgh2o")
+
+[node name="FoodSpawnLocation" type="PathFollow2D" parent="FoodPath"]
+
+[node name="HUD" parent="." instance=ExtResource("8_50glp")]
+
+[node name="BadFoodSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_h1m7h")
+
+[node name="GoodFoodSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_erwvk")
+
+[node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_2w5on")
+
+[node name="PlayButtonSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_346fj")
+
+[node name="MusicInGame" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_0sclb")
+
+[node name="PushSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_sxkr1")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_fq0cl")
+
+[connection signal="pushed" from="Player" to="." method="_on_player_pushed"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="FoodTimer" to="." method="_on_food_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]

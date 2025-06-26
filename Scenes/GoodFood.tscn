@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbsud3e4bw877"]
+
+[ext_resource type="Texture2D" uid="uid://dddgunnoa35an" path="res://Assets/BEPescadoReescalada.webp" id="1_24qdy"]
+[ext_resource type="Script" uid="uid://v7vmrndkiwje" path="res://Scripts/GoodFood.gd" id="1_hrpf3"]
+[ext_resource type="Texture2D" uid="uid://dx8bbko0734l0" path="res://Assets/BEArrozReescalado.webp" id="2_hrpf3"]
+[ext_resource type="Texture2D" uid="uid://bh5bdjkemugch" path="res://Assets/BEManzanaReescalada.webp" id="3_o4ng4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pgnlm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_24qdy")
+}],
+"loop": true,
+"name": &"Pescado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hrpf3")
+}],
+"loop": true,
+"name": &"arroz",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_o4ng4")
+}],
+"loop": true,
+"name": &"manzana",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22jkm"]
+radius = 21.0
+height = 50.0
+
+[node name="GoodFood" type="Area2D" groups=["goodfoods"]]
+collision_layer = 4
+script = ExtResource("1_hrpf3")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_pgnlm")
+animation = &"manzana"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_22jkm")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

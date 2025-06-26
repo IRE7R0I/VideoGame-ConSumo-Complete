@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs67p5vtbobup"]
+
+[ext_resource type="Texture2D" uid="uid://bfs6h3udr3d7j" path="res://Assets/Portada/IDEA 6.png" id="1_3kf3n"]
+[ext_resource type="Script" uid="uid://djnqc265nsgkg" path="res://Scripts/Menu.gd" id="1_6pedr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3kf3n"]
+bg_color = Color(0, 0, 0, 0.737255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pedr"]
+bg_color = Color(0, 0, 0, 0.737255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syfuq"]
+bg_color = Color(0, 0, 0, 0.737255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2c3o"]
+bg_color = Color(0, 0, 0, 0.737255)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6pedr")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3kf3n")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.0
+offset_top = -131.0
+offset_right = 204.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_3kf3n")
+text = "JUGAR"
+
+[node name="Instructions" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_6pedr")
+text = "INSTRUCCIONES"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_syfuq")
+text = "SALIR"
+
+[node name="Author" type="Label" parent="."]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 620.0
+offset_right = 842.0
+offset_bottom = 642.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_s2c3o")
+text = "Autor: Trejo Juan Manuel"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Instructions" to="." method="_on_instructions_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

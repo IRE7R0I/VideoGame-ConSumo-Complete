@@ -1,0 +1,134 @@
+[gd_scene load_steps=6 format=3 uid="uid://di4f6fcret6og"]
+
+[ext_resource type="Script" uid="uid://b88ript7u3mya" path="res://Scripts/Hud.gd" id="1_chfh5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chfh5"]
+bg_color = Color(0, 0, 0, 0.737255)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vcfy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_puttd"]
+bg_color = Color(0.956863, 0.32549, 0.27451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jfbl"]
+bg_color = Color(0, 0, 0, 0.737255)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_chfh5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -612.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0846899, 0.0846899, 0.0846899, 1)
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.5
+offset_top = -56.0
+offset_right = 130.5
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_chfh5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KilogramCounter" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 264.0
+offset_top = 7.0
+offset_right = 384.0
+offset_bottom = 32.0
+grow_horizontal = 2
+text = ": KILOS "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="RemainingLives" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 7.5
+offset_right = 300.0
+offset_bottom = 32.5
+text = "VIDAS:"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 8.0
+offset_right = 130.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_8vcfy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_puttd")
+
+[node name="RestartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -225.0
+offset_right = 116.0
+offset_bottom = -154.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3jfbl")
+text = "REINICIAR JUEGO"
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ExitButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -120.0
+offset_right = 64.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3jfbl")
+text = "SALIR
+"
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_restart_button_pressed"]

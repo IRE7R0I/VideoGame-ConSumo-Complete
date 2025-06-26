@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfnn3doqgm8jg"]
+
+[ext_resource type="Script" uid="uid://pgq4xg18u3a0" path="res://Scripts/GlobeFish.gd" id="1_dkaws"]
+[ext_resource type="Texture2D" uid="uid://drujhm4cd5j5d" path="res://Assets/PezGloboReescalado.webp" id="2_l75h7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hukle"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_l75h7")
+}],
+"loop": true,
+"name": &"Pez Globo",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulhp3"]
+radius = 23.0
+height = 46.0
+
+[node name="GlobeFish" type="Area2D" groups=["globefishes"]]
+script = ExtResource("1_dkaws")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_hukle")
+animation = &"Pez Globo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_ulhp3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

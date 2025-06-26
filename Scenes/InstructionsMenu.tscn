@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbm5ptijcd581"]
+
+[ext_resource type="Script" uid="uid://7jrvjcmpmty2" path="res://Scripts/InstructionsMenu.gd" id="1_0rm4n"]
+[ext_resource type="Texture2D" uid="uid://bfs6h3udr3d7j" path="res://Assets/Portada/IDEA 6.png" id="2_rpel5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syfuq"]
+bg_color = Color(0, 0, 0, 0.737255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2c3o"]
+bg_color = Color(0, 0, 0, 0.737255)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iobys"]
+bg_color = Color(0, 0, 0, 0.737255)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rm4n")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rpel5")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.0
+offset_top = 55.0
+offset_right = 204.0
+offset_bottom = 387.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_syfuq")
+text = "VOLVER
+"
+
+[node name="Author" type="Label" parent="."]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 620.0
+offset_right = 842.0
+offset_bottom = 642.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_s2c3o")
+text = "Autor: Trejo Juan Manuel"
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -366.0
+offset_top = -253.0
+offset_right = 367.0
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_iobys")
+text = "Objetivo Comé comida sana para subir de peso y restaurar tu salud.
+
+ ¡Llegá al máximo de kg sin perder todas tus vidas!
+
+Nuestro Personaje Sos un aprendiz de sumo: comé, esquivá y resistí.
+
+Sumo Enemigo Si te toca, te empuja. ¡No te deja en paz!
+
+Comida Sana Suma 10 kg y te cura. Ideal para sobrevivir.
+
+Comida Mala Te baja salud y te aleja de la gloria. Cuidado.
+
+Pez Globo Letal. Tocarlo te quita una vida al instante."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
