@@ -30,6 +30,7 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [node name="HUD" type="CanvasLayer"]
+process_mode = 1
 script = ExtResource("1_chfh5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -128,7 +129,24 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3jfbl")
 text = "SALIR
 "
 
+[node name="LevelCount" type="Label" parent="."]
+offset_left = 590.0
+offset_top = 7.0
+offset_right = 695.0
+offset_bottom = 32.0
+text = "NIVEL: "
+
+[node name="ContinueButton" type="Button" parent="."]
+process_mode = 2
+offset_left = 308.0
+offset_top = 436.0
+offset_right = 541.0
+offset_bottom = 490.0
+text = "CONTINUAR
+"
+
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

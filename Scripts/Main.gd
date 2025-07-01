@@ -12,6 +12,8 @@ var objective_kilogram
 var generated_meals #Cada 10 comidas genera un pez globo
 var bad_probability
 var timer_difficult #creo que esta mal escrito tan buen ingles no tengo jajaja
+var level
+var kilogram_count_life
 
 func _ready() -> void:
 	new_game()
@@ -25,12 +27,16 @@ func new_game():
 	generated_meals = 0 
 	bad_probability = 0.35
 	timer_difficult = 0.0
+	level = 1
+	kilogram_count_life = 0
 	$HUD.show_message("Preparate...")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_kilograms(kilogram)
 	$HUD.update_health_bar(health)
 	$HUD.update_lives(life)
+	$HUD.update_level(level)
+	
 	get_tree().call_group("enemies", "queue_free")
 	get_tree().call_group("goodfoods", "queue_free")
 	get_tree().call_group("badfoods", "queue_free")
@@ -47,6 +53,17 @@ func game_over():
 	$HUD.update_lives(0)
 	$HUD.show_game_over(kilogram)
 	$GameOverSound.play()
+	
+func resume_game():
+	print("El juego sigue")
+	get_tree().paused = false
+
+func pause_and_announce_level(new_level: int) -> void:
+	get_tree().paused = true
+	var texto = "¡Nivel " + str(new_level) + " alcanzado!\nPresioná CONTINUAR"
+	$HUD.show_message_in_pause(texto)
+	$HUD.show_continue_button()
+	
 
 func _on_start_timer_timeout() -> void:
 	$EnemyTimer.start()
@@ -74,6 +91,10 @@ func _on_touched_food(efecto: String):
 	if efecto == "buena":
 		$GoodFoodSound.play()
 		kilogram += 10
+		kilogram_count_life += 10
+		if kilogram_count_life >= 100:
+			life += 1 
+			kilogram_count_life = 0
 		health += 10
 		if health > 100:
 			health = 100
@@ -87,14 +108,20 @@ func _on_touched_food(efecto: String):
 			died()
 	elif efecto == "instakill":
 		died()
+	
 
 	if kilogram >= objective_kilogram: #Para cuando aumente el objetivo de 
 		health = 25
 		objective_kilogram *= 2
+		
+		level += 1
+		pause_and_announce_level(level)
+	
 
 	$HUD.update_kilograms(kilogram)
 	$HUD.update_health_bar(health)
 	$HUD.update_lives(life)
+	$HUD.update_level(level)
 
 func died():
 	$DeathSound.play()
